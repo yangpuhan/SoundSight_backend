@@ -6,7 +6,7 @@ from dotenv import load_dotenv, find_dotenv
 # load env parameters from .env file
 load_dotenv(find_dotenv())
 
-import GPT_related
+from . import GPT_related
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 OPENAI_API_ORGANIZATION = os.environ.get("OPENAI_API_ORGANIZATION")
@@ -18,7 +18,7 @@ logger.setLevel(logging.DEBUG)
 endpointmanager = EndpointManager()
 converter = PromptConverter()
 
-Example_prompt = converter.rawfile2chat(os.path.join(os.path.dirname(__file__), '..','templates','Example_prompt.txt'))
+# Example_prompt = converter.rawfile2chat(os.path.join(os.path.dirname(__file__), '..','templates','Example_prompt.txt'))
 
 if __name__ == '__main__':
     endpointmanager.add_endpoint_by_info(

@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from user_auth.models import UserHistory, UserProfile, User
 
 import json
-from GPT_call import *
+from . import GPT_call
 
 @csrf_exempt
 def index(request):
@@ -70,16 +70,17 @@ def prompt(request):
     if user is None:
         return JsonResponse({'code': 4, 'info': 'Invalid user_id'}, status=400)
     
-    endpointmanager.add_endpoint_by_info(
-        api_key=OPENAI_API_KEY,
-        organization=OPENAI_API_ORGANIZATION
+    GPT_call.endpointmanager.add_endpoint_by_info(
+        api_key=GPT_call.OPENAI_API_KEY,
+        organization=GPT_call.OPENAI_API_ORGANIZATION
     )
     role_content_pair = {
         "role": "user",
         "content": text
     }
-    response = GPT_related.connect_openai_api_chat(MODEL, Example_prompt + [role_content_pair], 512, logger, 30, ["debug", "[EXAMPLE]"])
-    content = GPT_related.get_content_from_response(response)
+    
+    response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, [role_content_pair], 512, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
+    content = GPT_call.GPT_related.get_content_from_response(response)
     
     if user.history is None:
         history_json = json.dumps([{"text": text, "response": content}])
