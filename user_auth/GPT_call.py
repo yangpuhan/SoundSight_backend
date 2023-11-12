@@ -31,6 +31,6 @@ if __name__ == '__main__':
         "role": "user",
         "content": user_input_str
     }
-    response = GPT_related.connect_openai_api_chat(MODEL, Example_prompt + [role_content_pair], 512, logger, 30, ["debug", "[EXAMPLE]"])
+    response = GPT_related.connect_openai_api_chat(MODEL, [role_content_pair], 512, logger, 30, ["debug", "[EXAMPLE]"])
     content = GPT_related.get_content_from_response(response)
     print(content)
