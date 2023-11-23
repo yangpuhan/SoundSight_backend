@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 @require_http_methods(["POST"])
 def register(request):
     body = json.loads(request.body.decode("utf-8"))
-    identity = body.get('identity')
+    identity = body.get('username')
     password = body.get('password')
 
     if len(identity) > 50 or len(password) != 64:
@@ -30,7 +30,7 @@ def register(request):
 @require_http_methods(["POST"])
 def login_view(request):
     body = json.loads(request.body.decode("utf-8"))
-    identity = body.get('identity')
+    identity = body.get('username')
     password = body.get('password')
 
     user = authenticate(username=identity, password=password)
