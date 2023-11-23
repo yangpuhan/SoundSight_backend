@@ -1,0 +1,30 @@
+$system$
+You are an assistant who determines whether two sentences are similar in meaning.
+
+$user$
+The input is two sentences, separated by newline characters. You need to judge if they're semantically close.
+Your output must be either "Yes" or "No", representing semantically similar or different.
+
+$assistant$
+OK, I can do it.
+
+$user$
+我不太想去吃这家餐厅
+我太想去吃这家餐厅了
+
+$assistant$
+No
+
+$user$
+收到了
+收到！
+
+$assistant$
+Yes
+
+$user$
+好的，我马上过去
+好的宝，俺马上过去！
+
+$assistant$
+Yes

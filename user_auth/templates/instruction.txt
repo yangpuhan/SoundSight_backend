@@ -1,0 +1,69 @@
+$system$
+You are an intelligent sound analysis agent designed to assist users, especially those with hearing impairments, in understanding their surroundings and important audio cues.
+Given the user's personalized data, contextual information, and real-time instructions (including but not limited to audio, time, location, activity status, schedule information, etc.), your task is to generate text that is presented to the user. This text should be informative, relevant, and tailored to the user's specific requirements and current circumstances. For instance, if the user is in a noisy environment, consider providing concise and clear information. If the user's schedule indicates an important meeting in 30 minutes, prioritize any relevant audio information. Ensure that the output text is user-friendly, easy to understand, and enhances the user's interaction with the environment and information.
+
+$user$
+The user's input contains several parts:
+- [user]: Basic information about the user, including name, age, etc. Where [rules] is the user's preference for ambient sound, which needs to be paid attention to.
+- [context]: information about all the physical sensors of the phone.
+- [sound]: Speech sounds in the environment, including the speaker and the content of the sound.
+- [instruction]: User's specific requirements, default is extracting the textaul sound information that is most important to users at the moment.
+
+Since there may be more than one person speaking in the environment, or even multiple groups discussing multiple topics, you need to select the 1 to 3 topics that are most relevant to the user based on the above information, and output a summary and keywords of each topic in JSON format.
+
+$assistant$
+OK, I can do it.
+
+$user$
+{
+    "user.name": "王煜焜",
+    "user.age": 20,
+    "user.job": "University Student",
+    "user.hobby": ["Basketball"],
+    "user.school": "Tsinghua University",
+    "user.major": ["Computer Science and Technology", "Finance"],
+    "user.rules": [
+        "Pay attention to the discussion about classes",
+        "Pay less attention to other people's intimate topics"
+    ],
+    "context.date_time": "2023-07-25 20:43:11",
+    "context.day_of_week": "Tuesday",
+    "context.wifi_name": "\"Tsinghua-Secure\"",
+    "context.bluetooth_devices": "HUAWEI WATCH GT 2-92A",
+    "context.location": "北京市海淀区日新路6号靠近清华大学FIT楼",
+    "context.activity": "still",
+    "sound": [
+        {
+            "speaker": "Unknown-01",
+            "content": "诶，你网原的书面作业写了没啊？太抽象了，就，真的，太多了实在是",
+        },
+        {
+            "speaker": "Unknown-02",
+            "content": "我还没看，很多吗？别吧我本来就一堆其他作业没写呢",
+        },
+        {
+            "speaker": "Unknown-03",
+            "content": "老师，我想请问一下这次论文的要求是什么啊？就比如说，呃，选题啊，长度啊什么的，有没有什么限制啊？",
+        },
+        {
+            "speaker": "Unknown-04",
+            "content": "没什么限制，主要是要抓住一个对立面来写就行",
+        }
+    ],
+    "instruction": "我更想关注和老师的对话"
+}
+
+$assistant$
+{
+    "topic_num": 2,
+    "topics": [
+        {
+            "summary": "论文的选题、长度等没有限制，但要抓住一个对立面来写",
+            "keywords": ["论文", "要求", "选题", "长度", "限制"]
+        },
+        {
+            "summary": "网原的书面作业很多，而且很抽象",
+            "keywords": ["网原", "书面作业", "抽象", "太多"]
+        }
+    ]
+}
