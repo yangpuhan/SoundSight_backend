@@ -6,7 +6,7 @@ from django.views.decorators.http import require_http_methods
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from user_auth.models import UserHistory, UserProfile, User
+from user_auth.models import UserHistory, UserProfile, User, AudioInfo
 
 import json
 from . import GPT_call
@@ -14,7 +14,6 @@ from . import GPT_call
 @csrf_exempt
 def index(request):
     return JsonResponse({'code': 0, 'info': 'Succeed Startup'})
-
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -57,40 +56,102 @@ def logout_view(request):
     logout(request)
     return JsonResponse({'code': 0, 'info': 'Succeed Logout'})
 
+# @login_required()
+# @csrf_exempt
+# @require_http_methods(["POST"])
+# def prompt(request):
+#     body = json.loads(request.body.decode("utf-8"))  
+#     user_id = body.get('user_id')
+#     text = body.get('text')
+#     if user_id is None:
+#         return JsonResponse({'code': 1, 'info': 'Invalid user_id'}, status=400)
+#     user = User.objects.get(id=user_id)
+#     if user is None:
+#         return JsonResponse({'code': 4, 'info': 'Invalid user_id'}, status=400)
+    
+#     GPT_call.endpointmanager.add_endpoint_by_info(
+#         api_key=GPT_call.OPENAI_API_KEY,
+#         organization=GPT_call.OPENAI_API_ORGANIZATION
+#     )
+#     role_content_pair = {
+#         "role": "user",
+#         "content": text
+#     }
+    
+#     response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, [role_content_pair], 512, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
+#     content = GPT_call.GPT_related.get_content_from_response(response)
+    
+#     if user.history is None:
+#         history_json = json.dumps([{"text": text, "response": content}])
+#         user.history = UserHistory.objects.create(user_id=user_id, history_json=history_json)
+#     else:
+#         history_json = json.loads(user.history.history_json)
+#         history_json.append({"text": text, "response": content})
+#         user.history.history_json = json.dumps(history_json)
+#         user.history.save()
+    
+#     user.save()
+#     return JsonResponse({'code': 0, 'info': 'Succeed Prompt'})
+
 @login_required()
 @csrf_exempt
 @require_http_methods(["POST"])
-def prompt(request):
+def realtime_begin(request):
     body = json.loads(request.body.decode("utf-8"))  
-    user_id = body.get('user_id')
-    text = body.get('text')
-    if user_id is None:
-        return JsonResponse({'code': 1, 'info': 'Invalid user_id'}, status=400)
-    user = User.objects.get(id=user_id)
-    if user is None:
-        return JsonResponse({'code': 4, 'info': 'Invalid user_id'}, status=400)
+    checkCode = body.get('checkCode')
+    instruction = body.get('instruction')
+    AudioInfo.objects.create(checkCode=checkCode, instruction=instruction)
+    return JsonResponse({'code': 0, 'info': 'Succeed Linking', checkCode: checkCode})
+
+@login_required()
+@csrf_exempt
+@require_http_methods(["POST"])
+def realtime_middle(request):
+    body = json.loads(request.body.decode("utf-8"))  
+    checkCode = body.get('checkCode')
+    text = body.get('audioData')
+    info = AudioInfo.objects.get(checkCode=checkCode)
+    if info is None:
+        return JsonResponse({'code': 1, 'info': 'Invalid checkCode'}, status=400)
+    if info.text is None:
+        info.text = text
+    else:
+        info.text = info.text + text  
+    info.save() 
+    return JsonResponse({'code': 0, 'info': 'Succeed receiving', "checkCode": checkCode})   
+
+@login_required()
+@csrf_exempt
+@require_http_methods(["POST"])
+def realtime_end(request):
+    body = json.loads(request.body.decode("utf-8"))  
+    checkCode = body.get('checkCode')
+    text = body.get('audioData')
+    info = AudioInfo.objects.get(checkCode=checkCode)
+    if info is None:
+        return JsonResponse({'code': 1, 'info': 'Invalid checkCode'}, status=400)
+    if info.text is None:
+        info.text = text
+    else:
+        info.text = info.text + text
+    origin = info.text
+    info.save()
     
     GPT_call.endpointmanager.add_endpoint_by_info(
         api_key=GPT_call.OPENAI_API_KEY,
         organization=GPT_call.OPENAI_API_ORGANIZATION
     )
+    content = {
+        "instruction": info.instruction,
+        "text": info.text
+    }
     role_content_pair = {
         "role": "user",
-        "content": text
+        "content": content
     }
-    
-    response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, [role_content_pair], 512, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
+    response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, GPT_call.instruction_prompt+[role_content_pair], 4000, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
     content = GPT_call.GPT_related.get_content_from_response(response)
     
-    if user.history is None:
-        history_json = json.dumps([{"text": text, "response": content}])
-        user.history = UserHistory.objects.create(user_id=user_id, history_json=history_json)
-    else:
-        history_json = json.loads(user.history.history_json)
-        history_json.append({"text": text, "response": content})
-        user.history.history_json = json.dumps(history_json)
-        user.history.save()
+    return JsonResponse({'code': 0, 'info': 'Succeed receiving', "checkCode": checkCode, 'content': content, 'origin': origin})
     
-    user.save()
-    return JsonResponse({'code': 0, 'info': 'Succeed Prompt'})
 

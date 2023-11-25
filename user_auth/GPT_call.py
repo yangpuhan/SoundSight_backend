@@ -6,11 +6,12 @@ from dotenv import load_dotenv, find_dotenv
 # load env parameters from .env file
 load_dotenv(find_dotenv())
 
+from . import prompt
 from . import GPT_related
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 OPENAI_API_ORGANIZATION = os.environ.get("OPENAI_API_ORGANIZATION")
-MODEL = os.environ.get("MODEL")
+MODEL = "gpt-4-1106-preview"
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("test")
@@ -19,6 +20,9 @@ endpointmanager = EndpointManager()
 converter = PromptConverter()
 
 # Example_prompt = converter.rawfile2chat(os.path.join(os.path.dirname(__file__), '..','templates','Example_prompt.txt'))
+instruction_prompt = converter.raw2chat(prompt.instruction_prompt)
+integration_prompt = converter.raw2chat(prompt.integration_prompt)
+
 
 if __name__ == '__main__':
     endpointmanager.add_endpoint_by_info(
