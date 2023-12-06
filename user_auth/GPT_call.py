@@ -9,7 +9,7 @@ load_dotenv(find_dotenv())
 from . import prompt
 from . import GPT_related
 
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+OPENAI_API_KEY = "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"
 OPENAI_API_ORGANIZATION = os.environ.get("OPENAI_API_ORGANIZATION")
 MODEL = "gpt-4-1106-preview"
 
