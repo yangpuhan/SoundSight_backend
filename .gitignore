@@ -3,4 +3,5 @@
 **/.env
 migrations
 *.sqlite3
+*.wav
 ```

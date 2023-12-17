@@ -9,6 +9,13 @@ from django.contrib.auth.decorators import login_required
 from user_auth.models import UserHistory, UserProfile, User
 
 import json
+from aip import AipSpeech
+import librosa
+import soundfile as sf
+
+APP_ID = "44224551"
+API_KEY = "vORFI0xbItHsV7gmDp3nbR8v"
+SECRET_KEY = "jFKEZ1gLdfWKIgRexhZ1GB0DoTzHWyGb"
 
 @csrf_exempt
 def index(request):
@@ -62,8 +69,40 @@ def user_info(request):
     user = request.user
     return JsonResponse({'code': 0, 'info': 'Succeed getting user info', 'data': {'username': user.username, 'id': user.id}})
 
+@login_required
+@csrf_exempt
+@require_http_methods(["POST"])
+def audio(request):
+    audio = request.FILES.get('audio')
+    print(audio.size)
+    output_file_path = './output_file.wav'
+    with open(output_file_path, 'wb') as f:
+        for chunk in audio.chunks():
+            f.write(chunk)
+    
+    data, sample_rate = librosa.load(output_file_path)
+    # print(sample_rate)
+    new_sample_rate = 16000
+    resampled_audio = librosa.resample(data, orig_sr=sample_rate, target_sr=new_sample_rate)
+    resample_file_path = './resampled_output_file.wav'
+    sf.write(resample_file_path, resampled_audio, new_sample_rate, subtype='PCM_16')
 
+    # re_sample_rate, re_data = wav.read(resample_file_path)
+    # print(re_sample_rate)
 
+    with open(resample_file_path, "rb") as f:
+        file_read = f.read()
+    client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
+    
+    try:
+        ret = client.asr(file_read, 'wav', 16000)
+        words = ret["result"][0]
+        print(words)
+        return JsonResponse({'code': 0, 'info': 'Succeed.', 'words': words})
+    except:
+        ret = client.asr(file_read, 'wav', 16000)
+        return JsonResponse({'code': 2, 'info': 'Failed.', 'err': ret["error_msg"]})
+    
 # @login_required()
 # @csrf_exempt
 # @require_http_methods(["POST"])
