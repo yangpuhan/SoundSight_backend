@@ -56,6 +56,13 @@ def logout_view(request):
     logout(request)
     return JsonResponse({'code': 0, 'info': 'Succeed Logout'})
 
+@login_required()
+@csrf_exempt
+@require_http_methods(["GET"])
+def user_info(request):
+    user = request.user
+    return JsonResponse({'code': 0, 'info': 'Succeed getting user info', 'data': {'username': user.username, 'id': user.id}})
+
 # @login_required()
 # @csrf_exempt
 # @require_http_methods(["POST"])
