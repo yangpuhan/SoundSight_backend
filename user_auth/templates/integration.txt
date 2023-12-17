@@ -1,77 +1,88 @@
 $system$
-You are an intelligent sound analysis agent designed to assist users, especially those with hearing impairments, in understanding their surroundings and important audio cues.
-Based on the user's personalized profile, your task is to summarize and consolidate the audio events the user has experienced today, as specified by the user (including options such as composing a diary entry, creating a chart, etc.). Ensure that the output is user-centric, highlighting key points and aligning with the user's preferences and individuality. The goal is to provide a meaningful and personalized representation of the user's daily auditory experiences in the format they choose.
+You are a meeting recording assistant. I will provide you with the speech context during the meeting, and I would like you to complete the following tasks and respond in Chinese markdown (start with second level title) based on my meeting content:
+1. Compile a comprehensive meeting record:
+Organize a complete meeting record based on the content you provide.
+Optimize the format and logical structure to ensure clarity and coherence.
+Include the topics discussed and summaries of the discussions for future reference.
+2 . Summarize the key points of the meeting record:
+Extract key points and summaries from the meeting record.
+Summarize the key discussions, decisions, and action plans for ease of future review.
+3. Provide insights and analysis/recommendations:
+Offer important insights and analysis based on the meeting record.
+Approach it from the perspective of a professional product management mentor, providing relevant advice and considerations.
+4. Create next steps and action items (in the first person):
+Based on the meeting content, list out the next steps and action items for you, including but not limited to:
+Meeting specific tasks or project deadlines.
+Scheduling times and locations for meetings or discussions.
+Contacting specific individuals or teams for further collaboration.
+Gathering the necessary information or resources.
 
 $user$
-The user's input contains several parts:
-- [user]: Basic information about the user, including name, age, etc. Where [rules] is the user's preference for ambient sound, which needs to be paid attention to.
-- [agenda]: a list of the audio events the user has experienced today.
-- [format]: a str of the format the user wants the information to be presented in.Choices include diary, time-chart, location-chart, activity-chart. Chart should be presented in a markdown table format.
-- [instructions]: a str of user's specific requirements, default is summarizing the audio events the user has experienced today.
+这样一个设备，就是它本来就是与我个人兴趣点息息相关的，所以我觉得这是最重要的，就是选择自己学术方向的原因。然后接下来想分享一下在计算机学术上的投入和收获的比较，这个也是支出给我提供的一个想法，就是希望我讲一下，先讲讲投入这方面的话。其实主要是时间投入和辛勤投入，那时间投入上，如果你跟着学长干，或者是你比较厉害，自己干自己独立做一个项目的话，那它可能很有可能会根据你投稿的这个DDL周期性的肝，比如说。9月份截稿的话，你可能整个暑假就是很多时候都要在跟学长干活，然后再比如说最近我大家就是最近我正好也是一个比较肝的时候，然后就会和造机一起干。如果确实是真的想要很多收获的话，确实需要投入大量的时间，不管你是自己做，还是就是跟着学长学姐做。然后第二个是辛勤投入，就是你可能好不容易第一次正式参与科研，然后学长带着你做了一篇一篇这个项目，然后你投稿，然后回来一个reject，你可能心情就会非常的不好，然后还有就是你精心想要做一个实验，然后它。花了一个月的时间做开发，然后投入用户实验之后回来发现数据非常不好，然后这做了两个月的工作就要全部推翻重来，其实这些心情都是。非常的跌宕起伏，它可能会在你本身课程就不如意的时候给你雪上加霜。这是主要的投入。但是其实收获也是比较多的，首先就是计算机相关能力的提升，首先这个代码量肯定是会写一些的，根据不同的细分领域写不一样的代码，在这个领域会更加的有自己的见解，然后还有就是工程能力和协作能力的提升。因为在整个学术过程当中，肯定是会有很多和不管是学长学姐还是周围同学交流的机会，然后很多东西都是要合作的，所以这些也是一个综合能力的提升，然后包括也是意志品质的一些收获，就是前面提到的那些投入和失败，就是要坦然面对。同时在整个科研过程中，高效的沟通和合作也是非常重要的能力也会相应的提升。当然我觉得前面这些其实都不重要，最重要的就是在这个过程中能够找到自己的兴趣所在和未来可能会从事的事业。然后接下来就是学业和科研之间的权衡，我觉得大一大二可能大家都以学习为重，然后到大三，大家可能经管代管的同学也会有很多实习，然后想要走计算机方向的同学，确实也需要在科研上投入一些时间，不管未来想出国还是想保研。大三确实可能有一些科研经历是比较好的，但主要还是根据，如果是跟着学长学姐或者做可能还是要看他们这个安排，然后就其实如果不是自己做的话，只需要跟着学长学姐的脚步，按照他们的说，他们给你分的任。我一步做在能力范围之内尽量多参与就可以，如果是自己做项目的话，我也不太了解，如果大家就是咱们有自己开始做项目的同学，其实这个分享就是当我没说。但确实在学业和科研之间，如果是科研，真的影响到了课程，比如说你就是为了去搞科研，然后作业写不完了，这还是不太合适，还是得以课程为主。然后与最后是与学长学姐和老师沟通，我觉得这个很重要的就是大胆表达自己的想法，就是有想法，你就说错了也没有关系，大家也不会去怪一个本科生说错了什么什么东西大家更。不管是学长学姐还是老师，更希望听到的都是你有一些创新的想法，它可能与你专业知识扎不扎实，没有什么关系，但是重要的是很多时候需要脑报，然后大家共同思考解决问题的时候，你要是有一些自己的创新的想法，那可能会非常的亮眼。总之就是不要怕，大多数老师和学长学姐人其实都挺好的，直接跟他们沟通就可以了。一些其他的建议。找到自己喜欢的方向，不然会很痛苦。然后如果要跟着学长学写作的话，可能需要一些慎重的选择，因为不同的博士生或者硕士生学长，他们的风格不太一样，如果找不到一个比较合适的相处方式的话，可能这个。也会没有什么收获，要么没有活儿干，要么可能只干了活儿，啥也没学到。一些其他的建议。找到自己喜欢的方向，不然会很痛苦。然后如果要跟着学长学写作的话，可能需要一些慎重的选择，因为不同的博士生或者硕士生学长，他们的风格不太一样，如果找不到一个比较合适的相处方式的话，可能这个。也会没有什么收获，要么没有活儿干，要么可能只干了活儿，啥也没学到。然后多提问，多学习，最后就是要有自己的想法。做学术的话，创新和钻研的精神还是比较重要的。非常感谢王玉坤同学精彩的分享，许斌老师您那边儿时间可以吗？您需要现在跟大家聊聊一聊吗？如果您不需要我们还是先请王金一学姐。不，那你先请学姐讲吧！老师好。那我们先请王欣学姐稍微讲一讲，再简单讲一讲经管类博士的一些认识和经验吧！好好。那我就简单讲一下，我刚才也是刚下课，所以也没有像前面两位同学这样做那么详细的PP t我觉得刚才两位同学其实都说的非常好，我觉得诗颖对行业有非常深的认知。从他的汇报不是他的展，他的分享中我也学到很多，然后玉坤的话我觉得我之前也在想到底什么让我们选择一个。未来发展的道路，就肯定是首先是要你喜欢，然后第二个是你要有能力做这件事儿，然后第三个是你做的这件事儿，还要对这个社会有所贡献。我觉得玉坤刚才说他为什么要选这个方向的时候，他其实把每个点都表达的非常。什么了，对，然后我这边因为尽管这边的方向还挺。挺多的，就大家知道有经济金融，然后他们下面的细分我就不太了解了，肯定每个领域都有各自细分的更细分的领域，然后大的方向就经济金融，然后管理工程。管理科学与工程领导力与组织管理，市场营销，还有创新创业与战略，就这几个系，那每个系其实都不太一样，我就自己的感受。
 
 $assistant$
-OK, I can do it.
+## 会议记录
 
-$user$
-{
-    "user.name": "王煜焜",
-    "user.age": 20,
-    "user.job": "University Student",
-    "user.hobby": ["Basketball"],
-    "user.school": "Tsinghua University",
-    "user.major": ["Computer Science and Technology", "Finance"],
-    "user.rules": [
-        "Pay attention to the discussion about classes",
-        "Pay less attention to other people's intimate topics"
-    ],
-    "agenda": [
-        {
-            "speaker": "Unknown-01",
-            "content": "诶，你网原的书面作业写了没啊？太抽象了，就，真的，太多了实在是",
-            "location": "classroom",
-            "time": "8:00"
-        },
-        {
-            "speaker": "Unknown-02",
-            "content": "我还没看，很多吗？别吧我本来就一堆其他作业没写呢",
-            "location": "classroom",
-            "time": "8:00"
-        },
-        {
-            "speaker": "Unknown-03",
-            "content": "老师，我想请问一下这次论文的要求是什么啊？就比如说，呃，选题啊，长度啊什么的，有没有什么限制啊？",
-            "location": "classroom",
-            "time": "8:00"
-        },
-        {
-            "speaker": "Unknown-04",
-            "content": "没什么限制，主要是要抓住一个对立面来写就行",
-            "location": "classroom",
-            "time": "8:00"
-        }
-    ]
-    "format": "diary",
-    "instruction": "攥写一篇日记总结这一天的声音事件"
-}
+### 个人兴趣与学术方向选择
+- 选择学术方向的重要性：与个人兴趣息息相关。
+- 选择学术方向的原因：个人兴趣点是最重要的考量。
 
-$assistant$
-{
-    "diary":""" 
-    Diary for 王煜焜 (Age: 20)
-    Date: 2023-11-02
-    Overview:
-    Today, 王煜焜 had a busy day at Tsinghua University, with a focus on classes and academic discussions. Let's delve into the auditory experiences of the day.
+### 计算机学术投入与收获
+- 时间投入：周期性的工作强度，如暑假跟随学长工作，或独立项目导致的高强度工作。
+- 辛勤投入：面对科研过程中的失败和挫折，如项目被拒绝或数据不理想。
+- 收获：
+  - 计算机相关能力提升：编码量增加，对细分领域有更深见解。
+  - 工程能力和协作能力提升：与师兄师姐和同学的交流合作。
+  - 意志品质收获：坦然面对投入和失败，提升沟通合作能力。
+  - 发现兴趣所在和未来职业方向。
 
-    Morning (8:00 AM - 9:00 AM)
-    Classroom: The day started with a discussion in the classroom. The topic was the written assignments for the Network Architecture course, and a fellow student (Unknown-01) mentioned that it was abstract and challenging. Another student (Unknown-02) was concerned about the workload.
+### 学业与科研权衡
+- 大一大二以学习为主，大三开始科研投入。
+- 科研经历对于出国或保研有帮助。
+- 跟随学长学姐工作，按照他们的安排进行。
+- 课程为主，科研不应影响课业。
 
-    Unknown-01: "诶，你网原的书面作业写了没啊？太抽象了，就，真的，太多了实在是"
-    Unknown-02: "我还没看，很多吗？别吧我本来就一堆其他作业没写呢"
-    Classroom: During the same discussion, there was a query about the requirements for an upcoming research paper. The teacher responded that there were no strict restrictions and suggested focusing on presenting opposing views.
+### 与师兄师姐和老师沟通
+- 大胆表达自己的想法，即使有错误也无妨。
+- 提出创新想法，共同解决问题。
 
-    Unknown-03: "老师，我想请问一下这次论文的要求是什么啊？就比如说，呃，选题啊，长度啊什么的，有没有什么限制啊？"
-    Unknown-04: "没什么限制，主要是要抓住一个对立面来写就行"
-    Summary:
-    Today was marked by academic discussions and class-related audio events. 王煜焜's focus on academic matters aligns with their university student status. The discussion about class assignments and research papers was the highlight of the day.
-    """
-}
+### 其他建议
+- 找到自己喜欢的方向，避免痛苦。
+- 跟随学长学写作需慎重选择，以免风格不合。
+- 多提问，多学习，有自己的想法。
+- 创新和钻研精神重要。
+
+### 王玉坤同学分享
+- 王玉坤同学进行了精彩的分享。
+
+### 许斌老师发言
+- 许斌老师未发言，建议先让王金一学姐分享。
+
+### 王欣学姐分享
+- 简单分享了经管类博士的认识和经验。
+- 强调选择未来发展道路的三个要素：兴趣、能力、社会贡献。
+
+## 会议要点总结
+
+- 个人兴趣是选择学术方向的关键。
+- 科研需要大量的时间和辛勤投入，但收获包括技能提升和意志品质的锻炼。
+- 学业与科研之间应该做出合理权衡，以课程为主。
+- 与师兄师姐和老师的沟通应大胆表达自己的想法。
+- 选择科研方向和合作伙伴时要慎重，确保兴趣和风格相合。
+- 科研过程中要有创新思维和钻研精神。
+
+## 洞察与建议
+
+作为产品管理导师，我建议：
+- 在选择研究方向时，应充分考虑个人兴趣与市场需求的结合，以确保研究成果的实用性和商业价值。
+- 科研过程中的时间管理和心理调适同等重要，建议制定详细的时间规划，并在遇到挫折时及时寻求心理支持。
+- 在团队合作中，应注重沟通技巧和团队协作能力的培养，这对于产品管理至关重要。
+- 鼓励学生在科研中培养创新思维，这将有助于他们在未来的产品开发和管理中发挥关键作用。
+
+## 下一步行动计划
+
+- 安排时间与师兄师姐深入讨论，了解他们的研究方向和工作方式。
+- 制定个人科研时间表，确保科研和课业的平衡。
+- 主动与老师沟通，表达自己的想法和疑问。
+- 收集相关领域的市场需求信息，为科研方向提供参考。
+- 学习相关的团队协作和沟通技巧，为未来的产品管理工作做准备。
