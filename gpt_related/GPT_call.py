@@ -22,6 +22,8 @@ converter = PromptConverter()
 # Example_prompt = converter.rawfile2chat(os.path.join(os.path.dirname(__file__), '..','templates','Example_prompt.txt'))
 instruction_prompt = converter.raw2chat(prompt.instruction_prompt)
 integration_prompt = converter.raw2chat(prompt.integration_prompt)
+polish_prompt = converter.raw2chat(prompt.polish_prompt)
+realtime_prompt = converter.raw2chat(prompt.realtime_prompt)
 
 
 if __name__ == '__main__':

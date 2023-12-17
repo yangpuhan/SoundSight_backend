@@ -6,7 +6,7 @@ from django.views.decorators.http import require_http_methods
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from user_auth.models import UserHistory, UserProfile, User, AudioInfo
+from user_auth.models import UserHistory, UserProfile, User
 
 import json
 
