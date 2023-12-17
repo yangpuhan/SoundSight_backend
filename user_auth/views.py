@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from user_auth.models import UserHistory, UserProfile, User, AudioInfo
 
 import json
-from . import GPT_call
 
 @csrf_exempt
 def index(request):
