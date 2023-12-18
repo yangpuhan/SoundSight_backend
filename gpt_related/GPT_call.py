@@ -8,9 +8,9 @@ load_dotenv(find_dotenv())
 
 # import prompt
 # import GPT_related
-import prompt
-import GPT_related
-from GPT_related import MODEL
+from . import prompt
+from . import GPT_related
+from .GPT_related import MODEL
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("test")
