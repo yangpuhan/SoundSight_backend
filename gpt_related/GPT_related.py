@@ -2,7 +2,7 @@ from handyllm import PromptConverter, OpenAIAPI, EndpointManager
 from tenacity import retry, stop_after_attempt, wait_fixed
 import os
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"
 # OPENAI_API_ORGANIZATION = os.environ.get("OPENAI_API_ORGANIZATION")
 MODEL = "gpt-4-1106-preview"
 endpointmanager = EndpointManager()
