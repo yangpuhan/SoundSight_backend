@@ -10,7 +10,7 @@ from user_auth.models import UserHistory, UserProfile, User
 from gpt_related import GPT_call
 import json
 
-@login_required()
+# @login_required()
 @csrf_exempt
 @require_http_methods(["POST"])
 def polish(request):

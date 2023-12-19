@@ -3,12 +3,12 @@ from tenacity import retry, stop_after_attempt, wait_fixed
 import os
 
 OPENAI_API_KEY = "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"
-# OPENAI_API_ORGANIZATION = os.environ.get("OPENAI_API_ORGANIZATION")
+OPENAI_API_ORGANIZATION = os.environ.get("OPENAI_API_ORGANIZATION")
 MODEL = "gpt-4-1106-preview"
 endpointmanager = EndpointManager()
 endpointmanager.add_endpoint_by_info(
     api_key=OPENAI_API_KEY,
-    # organization=OPENAI_API_ORGANIZATION
+    organization=OPENAI_API_ORGANIZATION
 )
 
 # 调用openai api，返回response类型为chat stream

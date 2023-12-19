@@ -10,7 +10,7 @@ load_dotenv(find_dotenv())
 # import GPT_related
 from . import prompt
 from . import GPT_related
-from .GPT_related import MODEL
+from .GPT_related import MODEL, endpointmanager, OPENAI_API_KEY, OPENAI_API_ORGANIZATION
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("test")
