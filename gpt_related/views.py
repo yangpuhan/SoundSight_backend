@@ -161,6 +161,14 @@ def realtime_summary(request):
     request.save()
 
     if is_end:
-        pass
+        all_audios = AudioInfo.objects.filter(user=user, is_end=False)
+        full_text = ''.join([audio.text for audio in all_audios])
+        role_content_pair = {
+            "role": "user",
+            "content": full_text
+        }
+        response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, GPT_call.integration_prompt+[role_content_pair], 4000, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
+        content = GPT_call.GPT_related.get_content_from_response(response)
+        return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": summary, "allSummary": content})
     else:
-        return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": summary})
+        return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": summary, "allSummary": ""})
