@@ -150,7 +150,7 @@ def realtime_summary(request):
     
     user = request.user
     
-    audios = AudioInfo.objects.filter(user=user, is_send=False, polish_text__ne="")
+    audios = AudioInfo.objects.filter(user=user, is_send=False).exclude(polish_text="")
     
     summary_log = AudioSummary.objects.filter(user=user).first()
     

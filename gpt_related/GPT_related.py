@@ -2,7 +2,7 @@ from handyllm import PromptConverter, OpenAIAPI, EndpointManager
 from tenacity import retry, stop_after_attempt, wait_fixed
 import os
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"
 OPENAI_API_ORGANIZATION = os.environ.get("OPENAI_API_ORGANIZATION")
 MODEL = "gpt-4-1106-preview"
 endpointmanager = EndpointManager()
@@ -19,7 +19,7 @@ def connect_openai_api_chat(model, messages, max_tokens, logger, timeout, log_ma
             model=model,
             endpoint_manager=endpointmanager,
             messages=messages,
-            temperature=0.2,
+            temperature=0.0,
             max_tokens=max_tokens,
             top_p=1.0,
             frequency_penalty=0.0,
