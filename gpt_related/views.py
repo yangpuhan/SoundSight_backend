@@ -91,7 +91,7 @@ def polish():
             "role": "user",
             "content": audio.text
         }
-        response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, GPT_call.polish_prompt+[audio.json_text], 4000, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
+        response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, GPT_call.polish_prompt+[role_content_pair], 4000, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
         polished = GPT_call.GPT_related.get_content_from_response(response)
         audio.polish_text = polished
         audio.save()
@@ -114,7 +114,7 @@ def summary():
                 "content": json.dumps({
                     "last_output": summary_log.summary if summary_log else "",
                     "sound_new": all_text,
-                    "instruction": request.instructions if request else ""
+                    "instruction": request.instruction if request else ""
                 },ensure_ascii=False)
             }
             response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, GPT_call.instruction_prompt+[role_content_pair], 4000, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
@@ -151,7 +151,7 @@ def realtime_summary(request):
     
     request = UserRequest.objects.filter(user=user).first()
     if request is None:
-        request = UserRequest.objects.create(user=user, instructions=instruction)
+        request = UserRequest.objects.create(user=user, instruction=instruction)
     request.instruction = instruction
     request.meeting_name = conference_name
     request.save()
