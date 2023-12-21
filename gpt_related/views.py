@@ -195,6 +195,8 @@ def realtime_summary(request):
         for audio in all_audios:
             audio.is_end = True
             audio.save()
+        summary_log.summary = ""
+        summary_log.save()
         return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": markdown.markdown(summary,extensions=extensions), "allSummary": markdown.markdown(content,extensions=extensions)})
     else:
         return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": markdown.markdown(summary,extensions=extensions), "allSummary": ""})
