@@ -178,6 +178,7 @@ def realtime_summary(request):
     request.save()
 
     if is_end:
+        print("---------------------END---------------------")
         all_audios = AudioInfo.objects.filter(user=user, is_end=False)
         full_text = ''.join([audio.text for audio in all_audios])
         user_profile = UserProfile.objects.filter(user_id=user.id).first()
@@ -194,6 +195,6 @@ def realtime_summary(request):
         for audio in all_audios:
             audio.is_end = True
             audio.save()
-        return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": markdown.markdown(summary,extensions=extensions), "allSummary": content})
+        return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": markdown.markdown(summary,extensions=extensions), "allSummary": markdown.markdown(content,extensions=extensions)})
     else:
         return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": markdown.markdown(summary,extensions=extensions), "allSummary": ""})
