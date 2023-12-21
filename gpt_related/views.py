@@ -128,6 +128,7 @@ def summary():
     
 scheduler.add_job(polish, 'interval', seconds = 10, replace_existing=True, coalesce=True)
 scheduler.add_job(summary, 'interval', seconds = 30, replace_existing=True, coalesce=True)
+scheduler.start()
 
 @login_required()
 @csrf_exempt
