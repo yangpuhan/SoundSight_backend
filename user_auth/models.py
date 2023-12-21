@@ -31,10 +31,20 @@ class UserProfile(models.Model):
     id = models.BigAutoField(primary_key=True)
     # 用户的ID
     user_id = models.BigIntegerField()
-    # 用户的个人信息
-    profile_json = models.TextField()
     # 用户的个人信息创建时间戳
     created_time = models.FloatField(default=(datetime.datetime.now()).timestamp())
+    # 用户的名字
+    name = models.CharField(max_length=50, default="")
+    # 用户的年龄
+    age = models.IntegerField(default=18)
+    # 用户的工作
+    job = models.CharField(max_length=50, default="")
+    # 用户的爱好
+    hobby = models.CharField(max_length=50, default="")
+    # 用户的专业
+    major = models.CharField(max_length=50, default="")
+    # 用户的规则
+    rules = models.CharField(max_length=50, default="")
 
     class Meta:
         indexes = [models.Index(fields=["id"])]
@@ -43,8 +53,13 @@ class UserProfile(models.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
-            'profile_json': self.profile_json,
             'created_time': self.created_time,
+            'name': self.name,
+            'age': self.age,
+            'job': self.job,
+            'hobby': self.hobby,
+            'major': self.major,
+            'rules': self.rules,
         }
 
 # 用户表 User

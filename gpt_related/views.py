@@ -10,6 +10,15 @@ from gpt_related import GPT_call
 import json
 import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
+import markdown
+
+extensions = [ 
+    'markdown.extensions.extra',
+    'markdown.extensions.codehilite', 
+    'markdown.extensions.toc',
+    'markdown.extensions.tables',
+    'markdown.extensions.fenced_code',
+]
 
 # @login_required()
 # @csrf_exempt
@@ -169,6 +178,9 @@ def realtime_summary(request):
         }
         response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, GPT_call.integration_prompt+[role_content_pair], 4000, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
         content = GPT_call.GPT_related.get_content_from_response(response)
-        return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": summary, "allSummary": content})
+        for audio in all_audios:
+            audio.is_end = True
+            audio.save()
+        return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": markdown.markdown(summary,extensions=extensions), "allSummary": content})
     else:
-        return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": summary, "allSummary": ""})
+        return JsonResponse({'code': 0, 'info': 'Succeed response', "polishedText": polishedText, "summary": markdown.markdown(summary,extensions=extensions), "allSummary": ""})

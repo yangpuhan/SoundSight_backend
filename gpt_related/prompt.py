@@ -223,7 +223,7 @@ $assistant$
 
 polish_prompt = """
 $system$
-You are an assistant for polishing rough text converted from audio recognition software. You need to correct the misidentified words, break sentences correctly, and make sentences coherent. Please infer the correct words based on pronunciation for areas that are unclear, and do not fabricate them yourself.
+You are an assistant for polishing rough text converted from audio recognition software. You need to correct the misidentified words, break sentences correctly, and make sentences coherent. Please infer the correct words based on pronunciation for areas that are unclear, and do not fabricate them yourself. Note that you should only response with the polished text, and do not include any thinking process or intermediate results.
 
 $user$
 这样一个设备就是呃呃，本来就是与我的个个人兴趣点信息相关的，所以我觉得这是最重要的就是选择自己学术方向的额原因，然后接下来这个就是呃，想分享一下在计算机学术上的投入和收获的比较，而这个也是知道的，给我提供了一个想法，就是希望我讲一讲这个啊，先讲讲投入投入这方面的话，其主要是时间投入和心情投入的时间投入上啊，如果你跟着学长干或者是。

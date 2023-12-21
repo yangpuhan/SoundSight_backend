@@ -65,10 +65,35 @@ def logout_view(request):
 
 @login_required()
 @csrf_exempt
-@require_http_methods(["GET"])
+@require_http_methods(["GET","POST"])
 def user_info(request):
     user = request.user
-    return JsonResponse({'code': 0, 'info': 'Succeed getting user info', 'data': {'username': user.username, 'id': user.id}})
+    if request.method == "GET":
+        user_id = user.id
+        if user_id is None:
+            return JsonResponse({'code': 1, 'info': 'Invalid user_id'}, status=400)
+        user_profile = UserProfile.objects.filter(user_id=user_id).first()
+        if user_profile is None:
+            user_profile = UserProfile.objects.create(user_id=user_id)
+        return JsonResponse({'code': 0, 'info': 'Succeed getting user info', 'data': user_profile.serialize()})
+    elif request.method == "POST":
+        body = json.loads(request.body.decode("utf-8"))
+        user_id = user.id
+        if user_id is None:
+            return JsonResponse({'code': 1, 'info': 'Invalid user_id'}, status=400)
+        user_profile = UserProfile.objects.filter(user_id=user_id).first()
+        if user_profile is None:
+            user_profile = UserProfile.objects.create(user_id=user_id)
+        user_profile.name = body.get('name')
+        user_profile.age = body.get('age')
+        user_profile.job = body.get('job')
+        user_profile.hobby = body.get('hobby')
+        user_profile.major = body.get('major')
+        user_profile.rules = body.get('rules')
+        user_profile.save()
+        return JsonResponse({'code': 0, 'info': 'Succeed setting user info', 'data': user_profile.serialize()})
+    else:
+        return JsonResponse({'code': 2, 'info': 'Invalid request method'}, status=400)
 
 @login_required
 @csrf_exempt
