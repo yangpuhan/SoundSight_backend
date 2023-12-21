@@ -7,6 +7,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from user_auth.models import UserHistory, UserProfile, User
+from gpt_related.models import AudioInfo
 
 import json
 from aip import AipSpeech
@@ -73,6 +74,7 @@ def user_info(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 def audio(request):
+    user = request.user
     audio = request.FILES.get('audio')
     print(audio.size)
     output_file_path = './output_file.wav'
@@ -98,6 +100,7 @@ def audio(request):
         ret = client.asr(file_read, 'wav', 16000)
         words = ret["result"][0]
         print(words)
+        AudioInfo.objects.create(text=words, user=user)
         return JsonResponse({'code': 0, 'info': 'Succeed.', 'words': words})
     except:
         ret = client.asr(file_read, 'wav', 16000)

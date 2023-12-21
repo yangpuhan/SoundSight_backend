@@ -6,17 +6,23 @@ import datetime
 class AudioInfo(models.Model):
     # 音频信息的ID
     id = models.BigAutoField(primary_key=True)
-    # 音频的checkCode
-    checkCode = models.CharField(max_length=64)
     # 音频对应的文本
-    json_text = models.JSONField(default=dict)
+    text = models.TextField()
     # 音频的创建时间戳
     created_time = models.FloatField(default=(datetime.datetime.now()).timestamp())
     # 音频对应的用户外键
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # polish后的文本
+    polish_text = models.TextField(default="")
+    # 是否已经summary
+    is_summary = models.BooleanField(default=False)
+    # 是否已经发送
+    is_send = models.BooleanField(default=False)
+    # 是否已经结束
+    is_end = models.BooleanField(default=False)
     
     class Meta:
-        indexes = [models.Index(fields=["checkCode"])]
+        indexes = [models.Index(fields=["id"])]
         
     def serialize(self):
         return {
@@ -56,6 +62,21 @@ class FullAudio(models.Model):
             'updated_time': self.updated_time,
             'user': self.user.serialize() if self.user else None,}.__str__()
 
+
+# 用户要求表
+class UserRequest(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    # 对应的用户外键
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # 用户的instruction
+    instruction = models.TextField(default="default instruction")
+    # 用户的meeting name
+    meeting_name = models.TextField(default="")
     
-
-
+# 用户语音总结表
+class AudioSummary(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    # 对应的用户外键
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # 最后一次的summary
+    summary = models.TextField(default="")
