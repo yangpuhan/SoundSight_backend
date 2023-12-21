@@ -147,6 +147,10 @@ def realtime_summary(request):
     
     polishedText = ''.join([audio.polish_text for audio in audios])
     
+    for audio in audios:
+        audio.is_send = True
+        audio.save()
+    
     summary = summary_log.summary if summary_log else ""
     
     request = UserRequest.objects.filter(user=user).first()
