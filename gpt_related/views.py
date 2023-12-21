@@ -5,7 +5,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from gpt_related.models import AudioInfo, FullAudio, UserRequest, AudioSummary
-from user_auth.models import User
+from user_auth.models import User, UserProfile
 from gpt_related import GPT_call
 import json
 import datetime
@@ -96,9 +96,14 @@ def polish():
     for audio in audios:
         print("POLISHING", audio.id)
         request = UserRequest.objects.filter(user=audio.user).first()
+        user_profile = UserProfile.objects.filter(user_id=audio.user.id).first()
         role_content_pair = {
             "role": "user",
-            "content": audio.text
+            "content": json.dumps({
+                "user_profile": user_profile.serialize() if user_profile else "",
+                "meeting_name": request.meeting_name if request else "",
+                "raw_text": audio.text,
+            },ensure_ascii=False)
         }
         response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, GPT_call.polish_prompt+[role_content_pair], 4000, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
         polished = GPT_call.GPT_related.get_content_from_response(response)
@@ -114,6 +119,7 @@ def summary():
         if len(audios) > 5:
             print("SUMMARYING", user.id)
             request = UserRequest.objects.filter(user=user).first()
+            user_profile = UserProfile.objects.filter(user_id=user.id).first()
             summary_log = AudioSummary.objects.filter(user=user).first()
             if summary_log is None:
                 summary_log = AudioSummary.objects.create(user=user)
@@ -121,6 +127,8 @@ def summary():
             role_content_pair = {
                 "role": "user",
                 "content": json.dumps({
+                    "user_profile": user_profile.serialize() if user_profile else "",
+                    "meeting_name": request.meeting_name if request else "",
                     "last_output": summary_log.summary if summary_log else "",
                     "sound_new": all_text,
                     "instruction": request.instruction if request else ""
@@ -172,9 +180,14 @@ def realtime_summary(request):
     if is_end:
         all_audios = AudioInfo.objects.filter(user=user, is_end=False)
         full_text = ''.join([audio.text for audio in all_audios])
+        user_profile = UserProfile.objects.filter(user_id=user.id).first()
         role_content_pair = {
             "role": "user",
-            "content": full_text
+            "content": json.dumps({
+                "user_profile": user_profile.serialize() if user_profile else "",
+                "meeting_name": request.meeting_name if request else "",
+                "meeting_info": full_text,
+            },ensure_ascii=False)
         }
         response = GPT_call.GPT_related.connect_openai_api_chat(GPT_call.MODEL, GPT_call.integration_prompt+[role_content_pair], 4000, GPT_call.logger, 30, ["debug", "[EXAMPLE]"])
         content = GPT_call.GPT_related.get_content_from_response(response)

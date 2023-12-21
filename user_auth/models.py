@@ -51,9 +51,6 @@ class UserProfile(models.Model):
 
     def serialize(self):
         return {
-            'id': self.id,
-            'user_id': self.user_id,
-            'created_time': self.created_time,
             'name': self.name,
             'age': self.age,
             'job': self.job,
