@@ -80,3 +80,13 @@ class AudioSummary(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     # 最后一次的summary
     summary = models.TextField(default="")
+    
+# 用户的语音整合表
+class AudioIntegration(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    # 对应的用户外键
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # 最后一次的integration
+    integration = models.TextField(default="")
+    # 包含的音频的id列表
+    audio_id_list = models.TextField(default="")
